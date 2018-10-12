@@ -1,0 +1,35 @@
+{
+  "name": "mapbox-echarts",
+  "version": "1.0.0",
+  "description": "mapbox component of echarts",
+  "main": "dist/mapbox-echarts.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wlfei0502/mapbox-echarts.git"
+  },
+  "keywords": [
+    "mapbox",
+    "echarts"
+  ],
+  "author": "wanglongfei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wlfei0502/mapbox-echarts/issues"
+  },
+  "homepage": "https://github.com/wlfei0502/mapbox-echarts#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "echarts": "^4.2.0-rc.1",
+    "mapbox-gl": "^0.50.0-beta.1"
+  }
+}
