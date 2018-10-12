@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>热力图</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        html, body, #echarts-container{
+            width:100%;
+            height:100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="echarts-container"></div>
+    <script type="application/javascript" src="./lib/mapbox-gl.js"></script>
+    <script type="application/javascript" src="./lib/echarts.js"></script>
+    <script type="application/javascript" src="../dist/mapbox-echarts.js"></script>
+    <script type="application/javascript" src="./tracks.js"></script>
+    <script>
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoid2xmZWkiLCJhIjoiY2puMTB6MXZlNHZjcTNwbnl3dnowYjhoaSJ9.s6ZkjRHGIY6xVNBRAf52MQ';
+
+        var myChart = echarts.init(document.getElementById('echarts-container'));
+
+        var points = [].concat.apply([], tracks.map(function (track) {
+            return track.map(function (seg) {
+                return seg.coord.concat([1]);
+            });
+        }));
+
+        let option = {
+            tmap: {
+                center: [120.13066322374, 30.240018034923],
+                zoom: 11,
+                roam: true,
+                style: 'mapbox://styles/mapbox/streets-v9'
+            },
+            visualMap: {
+                show: false,
+                top: 'top',
+                min: 0,
+                max: 5,
+                seriesIndex: 0,
+                calculable: true,
+                inRange: {
+                    color: ['blue', 'blue', 'green', 'yellow', 'red']
+                }
+            },
+            series: [{
+                type: 'heatmap',
+                coordinateSystem: 'tmap',
+                data: points,
+                pointSize: 5,
+                blurSize: 6
+            }]
+        }
+
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
