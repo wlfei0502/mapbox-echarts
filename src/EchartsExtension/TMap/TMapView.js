@@ -79,9 +79,7 @@ export default echarts.extendComponentView({
         tmap.on('zoomend', zoomEndHandler);
 
         this._oldMoveHandler = moveHandler;
-        this._oldMoveEndHandler = moveEndHandler;
         this._oldZoomEndHandler = zoomEndHandler;
-        this._oldZoomStartHandler = zoomStartHandler;
 
         var roam = tMapModel.get('roam');
         if (roam) {
