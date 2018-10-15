@@ -132,8 +132,6 @@ TMapCoordSys.create = function (ecModel, api) {
             tmapRoot.style.cssText = 'width:100%;height:100%';
             tmapRoot.classList.add('ec-extension-tmap');
             root.parentNode.appendChild(tmapRoot);
-            // 保留初始中心点，为地图偏移量的计算提供初始位置
-            tmapModel.initCenter = tmapModel.option.center;
             tmapModel.option.container = tmapRoot;
             var tmap = tmapModel.__tmap = new mapboxgl.Map(tmapModel.option);
             // 构建echarts图层

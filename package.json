@@ -1,6 +1,6 @@
 {
   "name": "mapbox-echarts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mapbox component of echarts",
   "main": "dist/mapbox-echarts.js",
   "scripts": {

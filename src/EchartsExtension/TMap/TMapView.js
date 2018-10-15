@@ -32,18 +32,11 @@ export default echarts.extendComponentView({
             if (rendering || this._zooming) {
                 return;
             }
-            var centerPix = tmap.project(tMapModel.initCenter);
-            var halfWidth = tmap.transform.width/2;
-            var halfHeight = tmap.transform.height/2;
             var centerOffset = {
               style:{
-                left:centerPix.x - halfWidth,
-                top:centerPix.y - halfHeight,
-              },
-              // style:{
-              //   left:'0',
-              //   top:'0',
-              // }
+                left:'0',
+                top:'0',
+              }
             }
             mapOffset = [
                 parseInt(centerOffset.style.left, 10) || 0,
@@ -53,6 +46,9 @@ export default echarts.extendComponentView({
             viewportRoot.style.top = mapOffset[1] + 'px';
             coordSys.setMapOffset(mapOffset);
             tMapModel.__mapOffset = mapOffset;
+            api.dispatchAction({
+              type: 'tmapRoam'
+            });
         };
 
         function zoomEndHandler() {
@@ -68,28 +64,6 @@ export default echarts.extendComponentView({
             });
         }
 
-        function zoomStartHandler() {
-            if (rendering) {
-              return;
-            }
-            resetEchartsLayer();
-            this._zooming = true;
-        }
-
-        function moveEndHandler () {
-            if (rendering || this._zooming) {
-              return;
-            }
-            resetEchartsLayer();
-            tMapModel.initCenter = tmap.getCenter();
-            api.dispatchAction({
-                type: 'tmapRoam'
-            });
-            setTimeout(function () {
-                viewportRoot.style.display = 'block';
-            }, 300);
-        }
-
         function resetEchartsLayer() {
           var mapOffset = [0, 0];
           viewportRoot.style.left = mapOffset[0] + 'px';
@@ -100,13 +74,9 @@ export default echarts.extendComponentView({
         }
 
         tmap.off('move', this._oldMoveHandler);
-        tmap.off('moveend', this._oldMoveEndHandler);
         tmap.off('zoomend', this._oldZoomEndHandler);
-        tmap.off('zoomstart', this._oldZoomStartHandler);
         tmap.on('move', moveHandler);
-        tmap.on('moveend', moveEndHandler);
         tmap.on('zoomend', zoomEndHandler);
-        tmap.on('zoomstart', zoomStartHandler);
 
         this._oldMoveHandler = moveHandler;
         this._oldMoveEndHandler = moveEndHandler;
